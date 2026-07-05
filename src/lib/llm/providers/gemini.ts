@@ -22,13 +22,7 @@ export class GeminiProvider {
   }
 
   async *chatStream(messages: LLMMessage[]): AsyncIterable<string> {
-    console.log('[GEMINI DIAGNOSTICS]', {
-      apiKeyDefined: !!process.env.GEMINI_API_KEY,
-      apiKeyLength: process.env.GEMINI_API_KEY?.length ?? 0,
-      model: this.model,
-      baseURL: this.client.baseURL,
-      messageCount: messages.length,
-    });
+
     const stream = await this.client.chat.completions.create({
       model: this.model,
       messages: messages,

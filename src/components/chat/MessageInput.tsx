@@ -42,8 +42,8 @@ export function MessageInput({ onSend, disabled }: MessageInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-slate-900 border-t border-slate-800/80">
-      <div className="relative flex-1 flex items-end bg-slate-950 rounded-xl border border-slate-800 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition duration-150 ease-in-out">
+    <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-bg-surface border-t border-gray-200">
+      <div className="relative flex-1 flex items-end bg-white rounded-[24px] border border-gray-200 focus-within:ring-2 focus-within:ring-black focus-within:border-black transition duration-150 ease-in-out shadow-sm">
         <textarea
           ref={textareaRef}
           value={input}
@@ -52,13 +52,13 @@ export function MessageInput({ onSend, disabled }: MessageInputProps) {
           placeholder={disabled ? 'Tutor is thinking...' : 'Ask a question or share code...'}
           disabled={disabled}
           rows={1}
-          className="w-full pl-4 pr-12 py-3.5 max-h-[200px] resize-none outline-none bg-transparent text-white placeholder-slate-500 text-sm font-sans leading-relaxed disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full pl-5 pr-14 py-4 max-h-[200px] resize-none outline-none bg-transparent text-black placeholder-gray-400 text-sm font-sans leading-relaxed disabled:opacity-50 disabled:cursor-not-allowed"
         />
         <button
           type="submit"
           aria-label="Send message"
           disabled={disabled || !input.trim()}
-          className="absolute right-2 bottom-2 flex items-center justify-center h-9 w-9 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white disabled:bg-slate-800 disabled:text-slate-500 disabled:opacity-50 transition duration-150 ease-in-out"
+          className="absolute right-2 bottom-2 flex items-center justify-center h-10 w-10 rounded-full bg-black hover:bg-gray-800 text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:opacity-50 transition duration-150 ease-in-out"
         >
           <Send className="h-4 w-4" />
         </button>

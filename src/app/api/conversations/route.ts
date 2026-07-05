@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => ({}));
     const { personaId, title } = body;
 
-    console.log('[CONVERSATIONS POST] body received:', { personaId, title, userId: user.id });
+
 
     if (!personaId || (personaId !== 'hitesh' && personaId !== 'piyush')) {
       return NextResponse.json({ error: 'Invalid or missing personaId' }, { status: 400 });

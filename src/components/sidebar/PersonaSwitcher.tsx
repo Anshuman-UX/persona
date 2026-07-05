@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { personas } from '@/personas';
-import { MessageSquare, Sparkles } from 'lucide-react';
+import { MessageSquare, Sparkles, CheckCircle2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export function PersonaSwitcher() {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState('hitesh');
+  const [selectedId, setSelectedId] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -55,34 +55,42 @@ export function PersonaSwitcher() {
   };
 
   return (
-    <div className="max-w-xl w-full mx-auto p-6 bg-slate-900/40 rounded-2xl border border-slate-800/80 backdrop-blur-sm shadow-xl">
-      <h2 className="text-xl font-bold text-white mb-6 text-center tracking-tight flex items-center justify-center gap-2">
-        <Sparkles className="h-5 w-5 text-indigo-400" />
+    <div className="max-w-xl w-full mx-auto p-10 bg-white rounded-[32px] border border-gray-200 shadow-xl">
+      <h2 className="text-3xl font-heading font-black text-black mb-10 text-center tracking-tight flex items-center justify-center gap-2">
+        <Sparkles className="h-6 w-6 text-black" />
         Select a Mentor
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
         {Object.entries(personas).map(([id, persona]) => {
           const isSelected = selectedId === id;
+          const pastelColor = id === 'hitesh' ? 'bg-pastel-yellow' : 'bg-pastel-blue';
           return (
             <button
               key={id}
               onClick={() => handleSelect(id)}
-              className={`flex flex-col items-center p-5 rounded-xl border text-center transition-all duration-200 ${
+              className={`relative flex flex-col items-center p-6 rounded-3xl border-2 text-center transition-all duration-300 ease-out ${
                 isSelected
-                  ? 'bg-indigo-600/10 border-indigo-500 shadow-md shadow-indigo-500/5'
-                  : 'bg-slate-950/40 border-slate-800/85 hover:border-slate-700/80'
+                  ? `${pastelColor} border-black shadow-md scale-[1.02]`
+                  : 'bg-white border-gray-100 hover:border-gray-200 hover:shadow-lg hover:-translate-y-1'
               }`}
             >
-              <div className="h-14 w-14 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400 font-extrabold text-xl mb-3 shadow-inner">
+              {isSelected && (
+                <div className="absolute top-4 right-4 text-black">
+                  <CheckCircle2 className="h-6 w-6 fill-black text-white" />
+                </div>
+              )}
+              <div className="h-16 w-16 rounded-2xl bg-white flex items-center justify-center text-black font-heading font-extrabold text-2xl mb-4 shadow-sm">
                 {persona.metadata.name.charAt(0)}
               </div>
-              <h3 className="font-bold text-white text-base">
+              <h3 className="font-heading font-bold text-black text-xl mb-3">
                 {persona.metadata.name}
               </h3>
-              <p className="text-[11px] text-indigo-300 mt-1 font-mono uppercase tracking-wider">
-                {persona.identity.role.join(' & ')}
-              </p>
-              <p className="text-xs text-slate-500 mt-2 px-2 leading-relaxed">
+              <div className="bg-black/5 px-3 py-1 rounded-full mb-3 border border-black/10">
+                <p className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">
+                  {persona.identity.role[0] || 'Mentor'}
+                </p>
+              </div>
+              <p className="text-sm text-gray-600 px-1 leading-relaxed font-medium line-clamp-3">
                 {persona.metadata.description}
               </p>
             </button>
@@ -91,10 +99,10 @@ export function PersonaSwitcher() {
       </div>
       <button
         onClick={handleStartChat}
-        disabled={loading}
-        className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out shadow-lg shadow-indigo-600/15"
+        disabled={loading || !selectedId}
+        className="w-full flex items-center justify-center gap-2 py-4 px-6 mt-2 rounded-full bg-black hover:bg-gray-800 text-white font-bold text-lg disabled:opacity-30 disabled:cursor-not-allowed transition duration-150 ease-in-out shadow-lg"
       >
-        <MessageSquare className="h-4.5 w-4.5" />
+        <MessageSquare className="h-5 w-5" />
         {loading ? 'Creating session...' : 'Start a New Chat'}
       </button>
     </div>

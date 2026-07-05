@@ -135,14 +135,14 @@ export function Sidebar() {
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-slate-900 border-r border-slate-800/80 text-slate-200">
+    <div className="flex flex-col h-full bg-bg-surface border-r border-gray-200 text-gray-900">
       {/* Top Brand Header */}
-      <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-2.5" onClick={() => setIsMobileOpen(false)}>
-          <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-extrabold text-sm">
+      <div className="p-6 border-b border-gray-200 flex items-center justify-between bg-white">
+        <Link href="/dashboard" className="flex items-center gap-3" onClick={() => setIsMobileOpen(false)}>
+          <div className="h-8 w-8 rounded-xl bg-black flex items-center justify-center text-white font-heading font-extrabold text-sm">
             P
           </div>
-          <span className="font-bold text-white text-base tracking-wide">
+          <span className="font-heading font-bold text-black text-lg tracking-tight">
             Persona Tutor
           </span>
         </Link>
@@ -150,18 +150,18 @@ export function Sidebar() {
         <button
           onClick={() => setIsMobileOpen(false)}
           aria-label="Close menu"
-          className="sm:hidden p-1 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white"
+          className="sm:hidden p-1 rounded-md hover:bg-gray-100 text-gray-500 hover:text-black"
         >
           <X className="h-5 w-5" />
         </button>
       </div>
 
       {/* New Conversation Button */}
-      <div className="p-4">
+      <div className="p-5 pt-8 border-b border-gray-200/60 pb-8">
         <button
           onClick={handleNewChat}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition duration-150 ease-in-out disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-black hover:bg-gray-800 text-white font-bold text-sm transition duration-150 ease-in-out disabled:opacity-50"
         >
           <Plus className="h-4 w-4" />
           {loading ? 'Creating...' : 'New Chat'}
@@ -169,60 +169,61 @@ export function Sidebar() {
       </div>
 
       {/* History List */}
-      <div className="flex-1 overflow-y-auto px-2 space-y-1.5 custom-scrollbar">
-        <div className="px-3 py-2 text-xs font-semibold text-slate-500 tracking-wider">
+      <div className="flex-1 overflow-y-auto px-4 space-y-1 custom-scrollbar pt-6 pb-4">
+        <div className="px-3 py-2 text-xs font-bold text-gray-400 tracking-widest uppercase mb-3">
           History
         </div>
         {isInitialLoading ? (
           <div className="space-y-2 px-2">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse flex items-center gap-3 px-2 py-3 rounded-lg bg-slate-800/40">
-                <div className="h-4 w-4 rounded bg-slate-700/50" />
+              <div key={i} className="animate-pulse flex items-center gap-3 px-2 py-3 rounded-lg bg-gray-100">
+                <div className="h-4 w-4 rounded bg-gray-200" />
                 <div className="flex-1 space-y-2">
-                  <div className="h-3 bg-slate-700/50 rounded w-3/4" />
-                  <div className="h-2 bg-slate-700/50 rounded w-1/2" />
+                  <div className="h-3 bg-gray-200 rounded w-3/4" />
+                  <div className="h-2 bg-gray-200 rounded w-1/2" />
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="px-3 py-4 mx-2 mt-2 bg-red-950/30 border border-red-900/50 rounded-lg text-center">
-            <p className="text-xs text-red-400 mb-2">{error}</p>
+          <div className="px-3 py-4 mx-2 mt-2 bg-red-50 border border-red-100 rounded-xl text-center">
+            <p className="text-xs font-medium text-red-500 mb-2">{error}</p>
             <button
               onClick={fetchConversations}
-              className="text-xs px-3 py-1.5 bg-red-900/40 hover:bg-red-900/60 text-red-200 rounded-md transition-colors"
+              className="text-xs px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold rounded-full transition-colors"
             >
               Retry
             </button>
           </div>
         ) : conversations.length === 0 ? (
           <div className="px-3 py-8 text-center flex flex-col items-center">
-             <MessageSquare className="h-8 w-8 text-slate-700 mb-3" />
-             <p className="text-sm font-medium text-slate-400 mb-1">Start your first chat</p>
-             <p className="text-xs text-slate-500">Conversations will appear here</p>
+             <MessageSquare className="h-8 w-8 text-gray-300 mb-3" />
+             <p className="text-sm font-bold text-gray-400 mb-1">Start your first chat</p>
+             <p className="text-xs text-gray-400">Conversations will appear here</p>
           </div>
         ) : (
           conversations.map((conv) => {
             const isActive = pathname.endsWith(`/chat/${conv.id}`);
             const mentorName = conv.persona_id === 'hitesh' ? 'Hitesh' : 'Piyush';
+            const dotColor = conv.persona_id === 'hitesh' ? 'bg-yellow-400' : 'bg-blue-400';
             
             return (
               <Link
                 key={conv.id}
                 href={`/dashboard/chat/${conv.id}`}
                 onClick={() => setIsMobileOpen(false)}
-                className={`group flex items-center justify-between px-3 py-3 rounded-lg text-sm transition-all duration-150 ${
+                className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm transition-all duration-150 ${
                   isActive
-                    ? 'bg-slate-800 text-white font-medium'
-                    : 'hover:bg-slate-800/40 text-slate-400 hover:text-slate-200'
+                    ? 'bg-white shadow-md border border-gray-200 text-black font-bold scale-[1.02]'
+                    : 'hover:bg-white/60 text-gray-500 hover:text-black border border-transparent'
                 }`}
               >
-                <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <MessageSquare className={`h-4 w-4 flex-shrink-0 ${isActive ? 'text-indigo-400' : 'text-slate-600 group-hover:text-slate-400'}`} />
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className={`h-2.5 w-2.5 rounded-full ${dotColor} flex-shrink-0 shadow-sm`} />
                   <div className="truncate">
-                    <div className="truncate text-slate-200 font-medium">{conv.title}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">
-                      {mentorName} &bull; {formatRelativeTime(conv.created_at)}
+                    <div className="truncate text-gray-900 font-bold">{conv.title}</div>
+                    <div className="text-[11px] font-medium text-gray-400 mt-1">
+                      {formatRelativeTime(conv.created_at)}
                     </div>
                   </div>
                 </div>
@@ -231,10 +232,10 @@ export function Sidebar() {
                 <button
                   onClick={(e) => handleDelete(e, conv.id)}
                   aria-label="Delete Conversation"
-                  className="opacity-0 group-hover:opacity-100 p-1.5 rounded hover:bg-slate-700 hover:text-red-400 transition-all duration-150 flex-shrink-0"
+                  className="opacity-0 group-hover:opacity-100 p-2 rounded-full hover:bg-gray-100 hover:text-red-600 transition-all duration-150 flex-shrink-0"
                   title="Delete Conversation"
                 >
-                  <Trash2 className="h-3.5 w-3.5" />
+                  <Trash2 className="h-4 w-4" />
                 </button>
               </Link>
             );
@@ -243,12 +244,12 @@ export function Sidebar() {
       </div>
 
       {/* Bottom Logout actions */}
-      <div className="p-4 border-t border-slate-850">
+      <div className="p-5 border-t border-gray-200 bg-white">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2.5 py-2.5 px-3 rounded-lg hover:bg-slate-800/60 text-slate-400 hover:text-white transition duration-150 ease-in-out text-sm"
+          className="w-full flex items-center justify-center gap-2.5 py-3 px-4 rounded-full hover:bg-gray-100 text-gray-600 hover:text-black font-bold transition duration-150 ease-in-out text-sm"
         >
-          <LogOut className="h-4.5 w-4.5 text-slate-500" />
+          <LogOut className="h-4 w-4" />
           <span>Sign Out</span>
         </button>
       </div>
@@ -262,7 +263,7 @@ export function Sidebar() {
         <button
           onClick={() => setIsMobileOpen(true)}
           aria-label="Open menu"
-          className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 shadow-md text-slate-400 hover:text-white"
+          className="p-2.5 rounded-full bg-white border border-gray-200 shadow-md text-gray-500 hover:text-black"
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -279,10 +280,10 @@ export function Sidebar() {
           {/* Backdrop mask */}
           <div
             onClick={() => setIsMobileOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
           />
           {/* Slide-out drawer panel */}
-          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-slate-900 shadow-2xl z-55">
+          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-bg-surface shadow-2xl z-55">
             {sidebarContent}
           </div>
         </div>

@@ -35,11 +35,11 @@ export function ChatWindow({ messages, persona, isStreaming, onRetry }: ChatWind
   return (
     <div 
       ref={containerRef}
-      className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 bg-slate-950 flex flex-col custom-scrollbar"
+      className="flex-1 overflow-y-auto px-4 sm:px-6 py-8 bg-bg-surface flex flex-col custom-scrollbar"
     >
       <div className="flex-1 flex flex-col justify-end max-w-4xl w-full mx-auto">
         {messages.length === 0 ? (
-          <div className="divide-y divide-slate-900/50 mt-4">
+          <div className="flex flex-col gap-6 mt-4">
             <MessageBubble
               role="assistant"
               content={`Hello! I'm ${persona?.metadata.name || 'your Tutor'}. Start your learning session by asking questions, sharing stack traces, or requesting code examples.`}
@@ -47,7 +47,7 @@ export function ChatWindow({ messages, persona, isStreaming, onRetry }: ChatWind
             />
           </div>
         ) : (
-          <div className="divide-y divide-slate-900/50">
+          <div className="flex flex-col gap-6">
             {messages.map((msg, index) => (
               <MessageBubble
                 key={msg.id || index}
@@ -63,16 +63,16 @@ export function ChatWindow({ messages, persona, isStreaming, onRetry }: ChatWind
 
         {/* Streaming/Typing indicator bubble */}
         {isStreaming && messages[messages.length - 1]?.role === 'user' && (
-          <div className="flex w-full gap-3 py-6 border-b border-slate-900/50 justify-start">
-            <div className="flex-shrink-0 h-10 w-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400 font-bold">
+          <div className="flex w-full gap-3 py-4 justify-start mt-6">
+            <div className="flex-shrink-0 h-10 w-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-black font-heading font-extrabold shadow-sm">
               {persona?.metadata.name.charAt(0) || 'P'}
             </div>
             <div className="flex flex-col gap-1">
-              <div className="text-xs text-slate-500">{persona?.metadata.name || 'Assistant'}</div>
-              <div className="flex gap-1.5 items-center bg-slate-900/40 border border-slate-800/80 rounded-xl px-4 py-3 text-slate-400 text-sm">
-                <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce delay-100" />
-                <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce delay-200" />
-                <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce delay-300" />
+              <div className="text-xs font-bold text-gray-500 ml-1">{persona?.metadata.name || 'Assistant'}</div>
+              <div className="flex gap-1.5 items-center bg-white border border-gray-200 shadow-sm rounded-2xl px-5 py-4 text-black">
+                <span className="h-2 w-2 bg-black rounded-full animate-pulse delay-100" />
+                <span className="h-2 w-2 bg-black rounded-full animate-pulse delay-200" />
+                <span className="h-2 w-2 bg-black rounded-full animate-pulse delay-300" />
               </div>
             </div>
           </div>

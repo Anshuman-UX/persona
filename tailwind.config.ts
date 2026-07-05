@@ -10,14 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "Inter", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        heading: ["var(--font-bricolage)", "system-ui", "sans-serif"],
       },
       colors: {
-        // Design system tokens
-        "bg-base":     "var(--bg-base)",
-        "bg-surface":  "var(--bg-surface)",
-        "bg-elevated": "var(--bg-elevated)",
-        accent:        "var(--accent)",
+        "bg-base": "var(--bg-base)",
+        "bg-dark": "#0a0a0a",
+        "bg-surface": "var(--bg-surface)",
+        "pastel-yellow": "#fef08a",
+        "pastel-blue": "#bfdbfe",
+        "pastel-green": "#bbf7d0",
+        accent: "var(--accent)",
       },
       boxShadow: {
         "glow-accent": "0 0 60px var(--accent-glow)",
