@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Palette */
+  --bg-base:      #0c0c0f;
+  --bg-surface:   #111116;
+  --bg-elevated:  #17171e;
+  --border:       rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+
+  /* Accent — violet/indigo */
+  --accent:       #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-glow:  rgba(99,102,241,0.15);
+
+  /* Typography */
+  --foreground:   #f4f4f6;
+  --muted:        #71717a;
+  --subtle:       #3f3f46;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--bg-base);
+  font-family: var(--font-space-grotesk), 'Inter', system-ui, sans-serif;
+}
+
+/* Consistent dark scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 5px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: var(--subtle); border-radius: 9999px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .glow-accent { box-shadow: 0 0 60px var(--accent-glow); }
+}
