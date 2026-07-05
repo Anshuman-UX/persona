@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Brain, Zap, BookOpen, Users, Github } from 'lucide-react';
+import { ArrowRight, Brain, Zap, BookOpen, Users } from 'lucide-react';
 
 const personas = [
   {
